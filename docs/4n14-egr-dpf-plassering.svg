@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 940 620" class="fig" role="img" aria-label="Motoren sett fra hoyre side: EGR-kjoler og elektrisk EGR-ventil sitter hoyt bak paa motoren mot spjeldveggen, turboen er boltet paa eksosmanifolden bak, og katalysator og partikkelfilter henger som en kanne rett under turboen.">
+<style>
+  svg { font-family: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif; --fig-bg:#FBFBF9; --surface:#FFFFFF; --surface-3:#EDEEEA; --ink:#191C1B; --ink-2:#5A6160; --ink-3:#98A09E; --line:#C9CDC7; --hot:#B8481B; --cool:#276F86; --egr:#9A6E12; }
+  @media (prefers-color-scheme: dark) { svg { --fig-bg:#181B20; --surface:#20242A; --surface-3:#2A3038; --ink:#E9EAE6; --ink-2:#A6ADAC; --ink-3:#6E7883; --line:#3B434C; --hot:#FF8B54; --cool:#63C2DA; --egr:#DFB24E; } }
+
+  .sheet { fill: var(--fig-bg); }
+  .dg-box { fill: var(--surface); stroke: var(--line); stroke-width: 1.5; }
+  .dg-box-strong { fill: var(--surface-3); stroke: var(--ink-3); stroke-width: 1.5; }
+  .divider { stroke: var(--ink-3); stroke-width: 1.5; }
+  .hatch { stroke: var(--ink-3); stroke-width: 1.5; opacity: .55; }
+  .tap { fill: var(--ink-2); }
+  .dg-t { fill: var(--ink); font-size: 12.5px; }
+  .dg-title { fill: var(--ink); font-size: 13px; font-weight: 600; }
+  .dg-t-sm { fill: var(--ink-2); font-size: 11px; }
+  .lbl-egr { fill: var(--egr); }
+  .hot { stroke: var(--hot); stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cool { stroke: var(--cool); stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .egr { stroke: var(--egr); stroke-width: 2.5; fill: none; stroke-dasharray: 9 5; stroke-linecap: butt; stroke-linejoin: round; }
+  .sens { stroke: var(--ink-3); stroke-width: 1.2; fill: none; stroke-dasharray: 3 3; }
+  .rule-dash { stroke: var(--line); stroke-width: 1.2; stroke-dasharray: 6 6; }
+  .fill-hot { fill: var(--hot); }
+  .fill-egr { fill: var(--egr); }
+  .fill-cool { fill: var(--cool); }
+</style>
+  <defs>
+    <marker id="f1-ah-hot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 Z" class="fill-hot"/></marker>
+    <marker id="f1-ah-egr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 Z" class="fill-egr"/></marker>
+    <marker id="f1-ah-cool" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 Z" class="fill-cool"/></marker>
+  </defs>
+  <rect class="sheet" x="0" y="0" width="940" height="620"/>
+
+  <!-- front-side context -->
+  <rect class="dg-box" x="30" y="300" width="64" height="140" rx="6"/>
+  <text class="dg-t-sm" x="62" y="362" text-anchor="middle">Ladeluft-</text>
+  <text class="dg-t-sm" x="62" y="378" text-anchor="middle">kjoler</text>
+  <path class="cool" d="M94,352 L114,352" marker-end="url(#f1-ah-cool)"/>
+  <rect class="dg-box-strong" x="120" y="330" width="35" height="44" rx="4"/>
+  <text class="dg-t-sm" x="137" y="394" text-anchor="middle">Strupespjeld</text>
+  <rect class="dg-box" x="155" y="255" width="105" height="120" rx="6"/>
+  <text class="dg-t" x="207" y="306" text-anchor="middle">Innsugs-</text>
+  <text class="dg-t" x="207" y="323" text-anchor="middle">manifold</text>
+
+  <!-- engine -->
+  <rect class="dg-box" x="260" y="196" width="300" height="54" rx="6"/>
+  <text class="dg-t" x="410" y="228" text-anchor="middle">Topplokk &#8212; DOHC 16V MIVEC</text>
+  <rect class="dg-box" x="260" y="250" width="300" height="210" rx="8"/>
+  <text class="dg-title" x="410" y="360" text-anchor="middle">4N14 &#183; 2 268 cm&#179;</text>
+  <text class="dg-t-sm" x="410" y="380" text-anchor="middle">tverrstilt &#8212; eksossiden bak</text>
+
+  <!-- exhaust manifold + turbo -->
+  <rect class="dg-box-strong" x="560" y="250" width="82" height="140" rx="6"/>
+  <text class="dg-t" x="601" y="320" text-anchor="middle" transform="rotate(-90 601 320)">Eksosmanifold</text>
+  <rect class="dg-box" x="660" y="262" width="130" height="104" rx="16"/>
+  <circle class="dg-box-strong" cx="725" cy="312" r="30"/>
+  <text class="dg-title" x="725" y="242" text-anchor="middle">Turbo (VGT)</text>
+  <path class="cool" d="M775,192 L775,258" marker-end="url(#f1-ah-cool)"/>
+  <text class="dg-t-sm" x="775" y="184" text-anchor="middle">fra luftfilter</text>
+
+  <!-- EGR loop -->
+  <rect class="dg-box" x="470" y="100" width="170" height="58" rx="6"/>
+  <text class="dg-title" x="555" y="126" text-anchor="middle">EGR-kj&#248;ler</text>
+  <text class="dg-t-sm" x="555" y="144" text-anchor="middle">kj&#248;lev&#230;skekj&#248;lt</text>
+  <rect class="dg-box" x="280" y="100" width="140" height="58" rx="6"/>
+  <text class="dg-title" x="350" y="126" text-anchor="middle">EGR-ventil</text>
+  <text class="dg-t-sm" x="350" y="144" text-anchor="middle">elektrisk</text>
+  <path class="egr" d="M601,250 L601,162" marker-end="url(#f1-ah-egr)"/>
+  <text class="dg-t-sm lbl-egr" x="612" y="212">varm eksos</text>
+  <path class="egr" d="M470,129 L444,129" marker-end="url(#f1-ah-egr)"/>
+  <text class="dg-t-sm lbl-egr" x="445" y="92" text-anchor="middle">kj&#248;lt gass</text>
+  <path class="egr" d="M350,158 L350,180 L207,180 L207,251" marker-end="url(#f1-ah-egr)"/>
+  <text class="dg-t-sm lbl-egr" x="278" y="172" text-anchor="middle">inn i innsuget</text>
+
+  <!-- turbo to canister -->
+  <path class="hot" d="M695,366 L695,396" marker-end="url(#f1-ah-hot)"/>
+
+  <!-- DOC + DPF canister -->
+  <rect class="dg-box-strong" x="655" y="400" width="160" height="118" rx="20"/>
+  <line class="divider" x1="735" y1="400" x2="735" y2="518"/>
+  <line class="hatch" x1="750" y1="418" x2="750" y2="500"/>
+  <line class="hatch" x1="765" y1="418" x2="765" y2="500"/>
+  <line class="hatch" x1="780" y1="418" x2="780" y2="500"/>
+  <line class="hatch" x1="795" y1="418" x2="795" y2="500"/>
+  <text class="dg-title" x="695" y="464" text-anchor="middle">DOC</text>
+  <text class="dg-title" x="775" y="464" text-anchor="middle">DPF</text>
+  <text class="dg-t-sm" x="735" y="540" text-anchor="middle">DOC + DPF i &#233;n kanne, boltet rett under turboen</text>
+  <path class="hot" d="M815,459 L900,459" marker-end="url(#f1-ah-hot)"/>
+  <text class="dg-t-sm" x="905" y="482" text-anchor="end">under gulvet</text>
+
+  <!-- differential pressure sensor -->
+  <rect class="dg-box" x="830" y="280" width="100" height="50" rx="4"/>
+  <text class="dg-t-sm" x="880" y="302" text-anchor="middle">Differansetrykk-</text>
+  <text class="dg-t-sm" x="880" y="318" text-anchor="middle">sensor (&#916;p)</text>
+  <circle class="tap" cx="668" cy="400" r="3.5"/>
+  <circle class="tap" cx="805" cy="400" r="3.5"/>
+  <path class="sens" d="M845,330 L828,378 L805,397"/>
+  <path class="sens" d="M872,330 L872,374 L668,396"/>
+
+  <!-- floor + orientation -->
+  <line class="rule-dash" x1="20" y1="560" x2="920" y2="560"/>
+  <text class="dg-t-sm" x="20" y="578">understell</text>
+  <text class="dg-t-sm" x="20" y="602">&#9664; FRONT (kj&#248;ler)</text>
+  <text class="dg-t-sm" x="920" y="602" text-anchor="end">BAK &#8212; spjeldvegg / kup&#233; &#9654;</text>
+
+  <!-- legend -->
+  <line class="hot" x1="30" y1="508" x2="60" y2="508"/>
+  <text class="dg-t-sm" x="66" y="512">eksos</text>
+  <line class="egr" x1="140" y1="508" x2="170" y2="508"/>
+  <text class="dg-t-sm" x="176" y="512">EGR-gass</text>
+  <line class="cool" x1="270" y1="508" x2="300" y2="508"/>
+  <text class="dg-t-sm" x="306" y="512">friskluft / ladeluft</text>
+  <line class="sens" x1="440" y1="508" x2="470" y2="508"/>
+  <text class="dg-t-sm" x="476" y="512">sensorslange</text>
+</svg>
