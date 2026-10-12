@@ -2,8 +2,9 @@
 """Limtubeholder – genererer STL, OpenSCAD-fil og illustrasjon.
 
 Holderen er en rotasjonskropp: kuppelformet fot med en sylindrisk hals.
-I halsen er det en boring for korken på limtuben, med en kant (avsats)
-nederst som korken hviler på, og en liten lomme under kanten.
+Øverst er det en boring Ø24,5 ned til en kant (avsats). Under kanten går
+et hull på korkens bredde nesten helt ned til bunnen (bare 2-3 lag igjen),
+med flat bunn.
 
 Kjør:  python3 generate_limtubeholder.py
 """
@@ -18,9 +19,10 @@ H_DOME = 34.0        # høyde kuppel (fra sidebilde: hals ≈ 20 mm)
 D_NECK = 28.7        # ytre diameter hals (målt 28,7)
 D_BORE = 24.5        # boring i halsen (målt 24,5)
 BORE_DEPTH = 23.7    # dybde fra toppen ned til kanten (målt 23,7)
-D_CAP = 18.7         # korken på limtuben (målt 18,7) – må være > D_HOLE
-D_HOLE = 14.0        # hull gjennom kanten (korken stopper på kanten)
-POCKET_DEPTH = 6.0   # lomme under kanten (samler eventuelle limdrypp)
+D_CAP = 18.5         # korken på limtuben (målt 18,5)
+CLEARANCE = 0.4      # klaring så korken går ned i hullet etter printing
+D_HOLE = D_CAP + CLEARANCE  # hull under kanten, går nesten helt ned
+FLOOR = 0.6          # bunn under hullet: 3 lag à 0,2 mm (flat, ingen forhøyning)
 CHAMFER_BASE = 1.0   # 45° fas rundt bunnkanten
 CHAMFER_TOP_OUT = 0.6
 CHAMFER_TOP_IN = 1.0 # fas i toppen av boringen (lettere å sette tuben i)
@@ -40,7 +42,7 @@ def profile(n_dome=120):
     """Lukket polygon (r, z) i halvplanet r >= 0, mot klokka."""
     r_neck, r_bore, r_hole = D_NECK / 2, D_BORE / 2, D_HOLE / 2
     z_ledge = H_TOTAL - BORE_DEPTH
-    z_pocket = z_ledge - POCKET_DEPTH
+    z_pocket = FLOOR
     pts = [(0.0, 0.0), (D_BASE / 2 - CHAMFER_BASE, 0.0)]
     # kuppel: tettere punkter mot toppen der krumningen er størst
     for i in range(n_dome + 1):
@@ -123,7 +125,7 @@ def write_scad(path):
         fh.write(
             "// Limtubeholder – generert av generate_limtubeholder.py\n"
             f"// Fot Ø{D_BASE}, høyde {H_TOTAL}, hals Ø{D_NECK}, boring Ø{D_BORE} "
-            f"x {BORE_DEPTH} dyp, kant med Ø{D_HOLE} hull\n"
+            f"x {BORE_DEPTH} dyp, kant, hull Ø{D_HOLE:.1f} ned til {FLOOR} mm bunn\n"
             "$fn = 256;\n"
             "rotate_extrude() polygon([\n    " + pts + "\n]);\n"
         )
@@ -159,14 +161,26 @@ def render(path, poly):
         ax.set_axis_off()
         ax.set_title(title, fontsize=12)
 
-    low = revolve(profile(40), 96)
+    def subdivide(poly, max_len=2.5):
+        out = []
+        for i in range(len(poly)):
+            a, b = poly[i], poly[(i + 1) % len(poly)]
+            n = max(1, int(math.ceil(np.linalg.norm(b - a) / max_len)))
+            out += [a + (b - a) * t / n for t in range(n)]
+        return np.array(out)
+
+    low = revolve(subdivide(profile(40)), 96)
     fig = plt.figure(figsize=(16, 6.2), dpi=130)
     grey = (0.32, 0.33, 0.36)
 
     # --- 1: hele modellen
     ax = fig.add_subplot(1, 3, 1, projection="3d")
     elev, azim = 22, -55
-    vis = visible(low, elev, azim)
+    # innvendige flater dypere enn ~10 mm er ikke synlige herfra; de utelates
+    # fordi matplotlib ellers kan tegne dem gjennom ytterveggen
+    cen = low.mean(axis=1)
+    interior_deep = (np.hypot(cen[:, 0], cen[:, 1]) < D_BORE / 2 + 0.01) & (cen[:, 2] < H_TOTAL - 12)
+    vis = visible(low[~interior_deep], elev, azim)
     cols = shaded(vis, grey)
     ax.add_collection3d(Poly3DCollection(vis, facecolors=cols, edgecolors=cols, linewidths=0.2))
     setup_axes(ax, "Limtubeholder")
@@ -194,12 +208,11 @@ def render(path, poly):
     z_ledge = H_TOTAL - BORE_DEPTH
     cap_len = 30.0
     red = (0.85, 0.2, 0.15)
-    ax.add_patch(MplPolygon([(-D_CAP / 2, z_ledge), (D_CAP / 2, z_ledge),
-                             (D_CAP / 2, z_ledge + cap_len), (-D_CAP / 2, z_ledge + cap_len)],
+    ax.add_patch(MplPolygon([(-D_CAP / 2, FLOOR), (D_CAP / 2, FLOOR),
+                             (D_CAP / 2, FLOOR + cap_len), (-D_CAP / 2, FLOOR + cap_len)],
                             closed=True, facecolor="none", edgecolor=red, lw=1.2, ls="--"))
-    ax.annotate(f"korken på limtuben Ø{D_CAP:g}\n(hviler på kanten)", (-D_CAP / 2, z_ledge + 20),
-                (-D_BASE / 2 - 15, H_TOTAL + 10), fontsize=8, color=red,
-                arrowprops=dict(arrowstyle="->", lw=0.8, color=red))
+    ax.text(0, FLOOR + 20, f"kork på\nlimtuben\nØ{D_CAP:g}", ha="center", va="center",
+            fontsize=8, color=red)
 
     def dim_h(x0, x1, y, text, dy=1.3):
         ax.annotate("", (x0, y), (x1, y), arrowprops=dict(arrowstyle="<->", lw=0.8))
@@ -213,16 +226,18 @@ def render(path, poly):
     dim_h(-D_BASE / 2, D_BASE / 2, -4, f"Ø{D_BASE:g}", dy=-4.5)
     dim_h(-r_neck, r_neck, H_TOTAL + 16, f"Ø{D_NECK:g} hals")
     dim_h(-r_bore, r_bore, H_TOTAL + 9, f"Ø{D_BORE:g} boring")
-    dim_h(-r_hole, r_hole, z_ledge - POCKET_DEPTH - 3.5, f"Ø{D_HOLE:g} hull i kanten", dy=-4.5)
+    dim_h(-r_hole, r_hole, FLOOR + 3.5, f"Ø{D_HOLE:.1f} hull\n(kork {D_CAP:g} + {CLEARANCE:g} klaring)")
     dim_v(0, H_TOTAL, D_BASE / 2 + 5, f"{H_TOTAL:g}")
     dim_v(0, H_DOME, D_BASE / 2 + 11, f"{H_DOME:g}")
     dim_v(z_ledge, H_TOTAL, -(r_neck + 4), f"{BORE_DEPTH:g} dyp", dx=-3.2)
-    dim_v(z_ledge - POCKET_DEPTH, z_ledge, -(r_neck + 4), f"{POCKET_DEPTH:g}", dx=-3.2)
+    dim_v(FLOOR, z_ledge, -(r_neck + 4), f"{z_ledge - FLOOR:.1f} dyp under kanten", dx=-3.2)
+    ax.annotate(f"bunn {FLOOR:g} mm (3 lag), flat", (r_hole / 2, FLOOR / 2), (r_neck + 3, -7),
+                fontsize=8, arrowprops=dict(arrowstyle="->", lw=0.8))
     ax.annotate("kant (avsats)", (r_bore - 1.5, z_ledge), (r_bore + 6, z_ledge - 9),
                 fontsize=8, arrowprops=dict(arrowstyle="->", lw=0.8))
     ax.set_aspect("equal")
     ax.set_xlim(-D_BASE / 2 - 16, D_BASE / 2 + 16)
-    ax.set_ylim(-9, H_TOTAL + 24)
+    ax.set_ylim(-11, H_TOTAL + 24)
     ax.set_axis_off()
     ax.set_title("Snitt med mål (mm)", fontsize=12)
 

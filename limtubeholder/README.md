@@ -1,8 +1,8 @@
 # Limtubeholder
 
 Holder for en limtube (korken ned i holderen). Rotasjonskropp med kuppelformet
-fot og sylindrisk hals. I halsen er det en boring med en kant (avsats) nederst
-som korken på tuben hviler på, og en liten lomme under kanten.
+fot og sylindrisk hals. I halsen er det en boring Ø24,5 ned til en kant (avsats),
+og under kanten et hull på korkens bredde som går ned til en 0,6 mm flat bunn.
 
 | Mål                       | mm   | Kilde                         |
 |---------------------------|------|-------------------------------|
@@ -12,8 +12,8 @@ som korken på tuben hviler på, og en liten lomme under kanten.
 | Ytre diameter hals        | 28,7 | målt med skyvelær             |
 | Boring i hals             | 24,5 | målt med skyvelær             |
 | Dybde ned til kanten      | 23,7 | målt med dybdemål             |
-| Hull gjennom kanten       | 14,0 | valgt (korken er Ø18,7)       |
-| Lomme under kanten        | 6,0  | valgt                         |
+| Hull under kanten         | 18,9 | kork 18,5 + 0,4 mm klaring    |
+| Bunn under hullet         | 0,6  | 3 lag à 0,2 mm, flat          |
 | Fas rundt bunnkanten      | 1,0  | valgt (printvennlig)          |
 
 Filer:
@@ -22,6 +22,6 @@ Filer:
 - `limtubeholder.scad` – samme form som OpenSCAD-fil.
 - `limtubeholder.png` – illustrasjon med mål.
 - `generate_limtubeholder.py` – lager alle filene. Alle mål står øverst i
-  skriptet; endre f.eks. `D_BORE` til 20 for en strammere boring rundt korken.
+  skriptet; endre f.eks. `CLEARANCE` hvis korken sitter for stramt eller for løst.
 
 Printes stående på foten, ingen overheng som trenger støtte.
