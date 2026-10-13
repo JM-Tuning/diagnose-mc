@@ -1,5 +1,5 @@
 // Limtubeholder – generert av generate_limtubeholder.py
-// Fot Ø50.0, høyde 54.0, hals Ø28.7, boring Ø24.5 x 23.7 dyp, kant, hull Ø18.9 ned til 0.6 mm bunn
+// Fot Ø50.0, høyde 54.0, hals Ø28.7, boring Ø25.0 x 23.7 dyp, kant, hull Ø18.9 ned til 0.6 mm bunn
 $fn = 256;
 rotate_extrude() polygon([
     [0.000, 0.000],
@@ -67,9 +67,9 @@ rotate_extrude() polygon([
     [14.350, 34.000],
     [14.350, 53.400],
     [13.750, 54.000],
-    [13.250, 54.000],
-    [12.250, 53.000],
-    [12.250, 30.300],
+    [13.500, 54.000],
+    [12.500, 53.000],
+    [12.500, 30.300],
     [9.450, 30.300],
     [9.450, 0.600],
     [0.000, 0.600]
