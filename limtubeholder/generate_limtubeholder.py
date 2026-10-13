@@ -17,15 +17,15 @@ D_BASE = 50.0        # diameter fot (målt 50,0)
 H_TOTAL = 54.0       # total høyde (målt 54,0)
 H_DOME = 34.0        # høyde kuppel (fra sidebilde: hals ≈ 20 mm)
 D_NECK = 28.7        # ytre diameter hals (målt 28,7)
-D_BORE = 25.0        # boring i halsen (24,5 var for trangt for tuben)
+D_BORE = 25.5        # boring i halsen (24,5 og 25,0 var for trangt for tuben)
 BORE_DEPTH = 23.7    # dybde fra toppen ned til kanten (målt 23,7)
 D_CAP = 18.5         # korken på limtuben (målt 18,5)
 CLEARANCE = 0.4      # klaring så korken går ned i hullet etter printing
 D_HOLE = D_CAP + CLEARANCE  # hull under kanten, går nesten helt ned
 FLOOR = 0.6          # bunn under hullet: 3 lag à 0,2 mm (flat, ingen forhøyning)
 CHAMFER_BASE = 1.0   # 45° fas rundt bunnkanten
-CHAMFER_TOP_OUT = 0.6
-CHAMFER_TOP_IN = 1.0 # fas i toppen av boringen (lettere å sette tuben i)
+CHAMFER_TOP_OUT = 0.4
+CHAMFER_TOP_IN = 0.6 # fas i toppen av boringen (lettere å sette tuben i)
 DOME_EXP = 2.6       # formen på kuppelen: r(z) = R - k*z^DOME_EXP
 
 SEGMENTS = 256       # oppløsning rundt aksen (STL)
@@ -59,7 +59,12 @@ def profile(n_dome=120):
         (r_hole, z_pocket),
         (0.0, z_pocket),
     ]
-    return np.array(pts)
+    # fjern eventuelle påfølgende like punkter (gir ellers degenererte trekanter)
+    clean = [pts[0]]
+    for q in pts[1:]:
+        if abs(q[0] - clean[-1][0]) > 1e-9 or abs(q[1] - clean[-1][1]) > 1e-9:
+            clean.append(q)
+    return np.array(clean)
 
 
 def revolve(poly, segments):

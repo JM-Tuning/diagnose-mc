@@ -1,7 +1,7 @@
 # Limtubeholder
 
 Holder for en limtube (korken ned i holderen). Rotasjonskropp med kuppelformet
-fot og sylindrisk hals. I halsen er det en boring Ø25 ned til en kant (avsats),
+fot og sylindrisk hals. I halsen er det en boring Ø25,5 ned til en kant (avsats),
 og under kanten et hull på korkens bredde som går ned til en 0,6 mm flat bunn.
 
 | Mål                       | mm   | Kilde                         |
@@ -10,7 +10,7 @@ og under kanten et hull på korkens bredde som går ned til en 0,6 mm flat bunn.
 | Total høyde               | 54,0 | målt med skyvelær             |
 | Høyde kuppel / hals       | 34 / 20 | fra sidebilde              |
 | Ytre diameter hals        | 28,7 | målt med skyvelær             |
-| Boring i hals             | 25,0 | 24,5 var for trangt for tuben |
+| Boring i hals             | 25,5 | 24,5 og 25,0 var for trangt   |
 | Dybde ned til kanten      | 23,7 | målt med dybdemål             |
 | Hull under kanten         | 18,9 | kork 18,5 + 0,4 mm klaring    |
 | Bunn under hullet         | 0,6  | 3 lag à 0,2 mm, flat          |
